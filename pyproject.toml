@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quickwrench_api"
+version = "0.1.0"
+description = "Quickwrench backend Django API"
+license = {file = "LICENSE"}
+classifiers = [
+  "Framework :: Django",
+  "Programming Language :: Python :: 3",
+]
+requires-python = ">= 3.12"
+dependencies = [
+  "django",
+  "djangorestframework",
+  "djangorestframework-simplejwt",
+  "drf-spectacular",
+  "python-dotenv",
+  "uvicorn",
+]
+
+[project.optional-dependencies]
+tests = ["pytest","pytest-django"]
+dev = [
+  "ruff",
+  "black",
+  "mypy",
+  "django-stubs",
+  "djangorestframework-stubs",
+]
+
+[project.scripts]
+quickwrench-server = "quickwrench_api.server.main:run"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "quickwrench_api.settings"
+python_files = "test_*.py"

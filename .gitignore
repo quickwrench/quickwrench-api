@@ -1,0 +1,13 @@
+# virtural environment
+.venv
+venv
+activate
+
+# python cache
+__pycache__
+mypy_cache
+build
+
+# django
+db.sqlite3
+staticfiles
