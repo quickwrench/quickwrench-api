@@ -2,10 +2,10 @@ FROM python:3.12-alpine AS build
 
 RUN mkdir -p /usr/local/src/quickwrench_api
 
-COPY pyproject.toml requirements.txt src/ /usr/local/src/quickwrench_api/
+COPY pyproject.toml reqs/prod.txt src/ /usr/local/src/quickwrench_api/
 
 RUN cd /usr/local/src/quickwrench_api && \
-  pip install --no-cache -r requirements.txt && \
+  pip install --no-cache -r prod.txt && \
   echo yes | python manage.py collectstatic && \
   pip install --no-cache -U pip .
 
