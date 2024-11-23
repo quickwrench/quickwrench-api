@@ -2,7 +2,7 @@ import pytest
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 
-from ..models import Account
+from quickwrench_api.apps.accounts.models import Account
 
 
 class TestLoginView:
