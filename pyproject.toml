@@ -5,11 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "quickwrench_api"
 version = "0.1.0"
-description = "Quickwrench backend Django API"
-license = {file = "LICENSE"}
+description = "Quickwrench backend API"
 classifiers = [
   "Framework :: Django",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
 ]
 requires-python = ">= 3.12"
 dependencies = [
@@ -39,4 +40,6 @@ include-package-data = true
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "quickwrench_api.settings"
-python_files = "test_*.py"
+pythonpath = ["src"]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
