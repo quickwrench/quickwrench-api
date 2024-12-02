@@ -20,7 +20,6 @@ ALLOWED_HOSTS: list[str] = os.getenv(
 ).split(",")
 
 INSTALLED_APPS: list[str] = [
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -29,6 +28,8 @@ INSTALLED_APPS: list[str] = [
     "rest_framework",
     "drf_spectacular",
     "quickwrench_api.apps.accounts",
+    "quickwrench_api.apps.users",
+    "quickwrench_api.apps.workshops",
 ]
 
 MIDDLEWARE: list[str] = [
