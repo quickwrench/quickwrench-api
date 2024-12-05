@@ -20,7 +20,6 @@ ALLOWED_HOSTS: list[str] = os.getenv(
 ).split(",")
 
 INSTALLED_APPS: list[str] = [
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -29,6 +28,8 @@ INSTALLED_APPS: list[str] = [
     "rest_framework",
     "drf_spectacular",
     "quickwrench_api.apps.accounts",
+    "quickwrench_api.apps.users",
+    "quickwrench_api.apps.workshops",
 ]
 
 MIDDLEWARE: list[str] = [
@@ -116,6 +117,7 @@ REST_FRAMEWORK: dict[str, str | Iterable] = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
@@ -123,5 +125,5 @@ REST_FRAMEWORK: dict[str, str | Iterable] = {
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "TITLE": "Quickwrench API",
-    "DESCRIPTION": "Your go-to platform for car repair scheduling",
+    "DESCRIPTION": "Your go-to platform for car repair scheduling.",
 }
