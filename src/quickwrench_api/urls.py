@@ -7,5 +7,6 @@ urlpatterns: list[URLPattern | URLResolver] = [
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path("docs/", SpectacularSwaggerView.as_view(), name="docs"),
     path("accounts/", include("quickwrench_api.apps.accounts.urls")),
+    path("users/", include("quickwrench_api.apps.users.urls")),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
