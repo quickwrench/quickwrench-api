@@ -1,16 +1,17 @@
 import pytest
 from rest_framework.test import APIClient
+
 from quickwrench_api.apps.accounts.models import Account
 
 
 @pytest.fixture()
-def ac() -> APIClient:
+def client() -> APIClient:
     return APIClient()
 
 
 @pytest.fixture
-def test_user() -> dict[str, str]:
-    return {"username": "testuser", "password": "testpass"}
+def test_account() -> dict[str, str]:
+    return {"email": "test@test.com", "username": "testuser", "password": "testpass"}
 
 
 @pytest.fixture
