@@ -38,6 +38,9 @@ quickwrench-server = "quickwrench_api.server.main:run"
 [tool.setuptools]
 include-package-data = true
 
+[tool.mypy]
+disable_error_code = ["import-untyped"]
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "quickwrench_api.settings"
 pythonpath = ["src"]
