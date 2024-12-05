@@ -1,32 +1,22 @@
+from typing import Iterable, Mapping
+
 from rest_framework import serializers
+
 from .models import Account
 
 
-class RegisterSerializer(serializers.ModelSerializer):
+class AccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Account
-        fields = (
-            "username",
-            "email",
-            "first_name",
-            "last_name",
-            "password",
-            "account_type",
-        )
-        extra_kwargs = {
+        model: type = Account
+        fields: Iterable[str] = ("email", "username", "password")
+        extra_kwargs: Mapping[str, Mapping] = {
             "password": {"write_only": True},
         }
 
-    def validate_email(self, value):
-        if Account.objects.filter(email=value).exists():
-            raise serializers.ValidationError(
-                "An account with this email already exists."
-            )
-        return value
-
-    def create(self, validated_data):
-        password = validated_data.pop("password")
-        account = Account(**validated_data)
-        account.set_password(password)
-        account.save()
+    def create(self, validated_data: Mapping[str, str]) -> Account:
+        account: Account = Account.objects.create_user(
+            email=validated_data["email"],
+            password=validated_data["password"],
+            username=validated_data["username"],
+        )
         return account
