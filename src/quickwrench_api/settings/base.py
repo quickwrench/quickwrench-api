@@ -30,6 +30,7 @@ INSTALLED_APPS: list[str] = [
     "quickwrench_api.apps.accounts",
     "quickwrench_api.apps.users",
     "quickwrench_api.apps.workshops",
+    "quickwrench_api.apps.car_makes",
 ]
 
 MIDDLEWARE: list[str] = [
