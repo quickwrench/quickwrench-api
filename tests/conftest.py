@@ -3,6 +3,7 @@ from rest_framework.test import APIClient
 
 from quickwrench_api.apps.accounts.models import Account
 from quickwrench_api.apps.users.models import User
+from quickwrench_api.apps.car_makes.models import CarMake
 
 
 @pytest.fixture()
@@ -21,7 +22,7 @@ def user_data(test_account):
         "account": test_account,
         "first_name": "John",
         "last_name": "Doe",
-        "car_make": "BMW",
+        "car_make": 1,
     }
 
 
@@ -35,23 +36,21 @@ def existing_user():
         },
         "first_name": "John",
         "last_name": "Doe",
-        "car_make": "BMW",
     }
 
 
 @pytest.fixture
 def user_with_existing_email(db, existing_user):
-    # Create Account first
+    car_make = CarMake.objects.get(id=1)
     account = Account.objects.create_user(
         email=existing_user["account"]["email"],
         username=existing_user["account"]["username"],
         password=existing_user["account"]["password"],
     )
-    # Create User and link to Account explicitly
     user = User.objects.create(
         account=account,
         first_name=existing_user["first_name"],
         last_name=existing_user["last_name"],
-        car_make=existing_user["car_make"],
+        car_make=car_make,
     )
     return user

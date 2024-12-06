@@ -23,7 +23,7 @@ class TestRegister:
             },
             "first_name": "Jane",
             "last_name": "Doe",
-            "car_make": "Toyota",
+            "car_make": 1,
         }
 
         response = client.post("/users/register/", payload, format="json")
