@@ -23,7 +23,7 @@ class Category(models.Model):
 class Service(models.Model):
     category: models.ForeignKey = models.ForeignKey(
         Category,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
         related_name="services",
     )
     name: models.CharField = models.CharField(
