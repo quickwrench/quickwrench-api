@@ -3,6 +3,7 @@ from rest_framework.test import APIClient
 
 from quickwrench_api.apps.accounts.models import Account
 from quickwrench_api.apps.users.models import User
+from quickwrench_api.apps.workshops.models import Category, Service, Workshop
 
 
 @pytest.fixture()
@@ -55,3 +56,48 @@ def user_with_existing_email(db, existing_user):
         car_make=existing_user["car_make"],
     )
     return user
+
+
+# category
+@pytest.fixture
+def test_category():
+    return Category.objects.create(name="Testcategroy", description="testdescription")
+
+
+# service
+@pytest.fixture
+def test_service(test_category):
+    return Service.objects.create(
+        category=test_category,
+        name="Oil",
+        description="description",
+        price=99,
+    )
+
+
+# workshops
+@pytest.fixture
+def workshops_valid_data(test_account, test_service):
+    return {
+        "account": test_account,
+        "services": [test_service.id],
+        "address": "zayed",
+    }
+
+
+@pytest.fixture
+def workshop_with_existing_email(db, test_service):
+
+    account = Account.objects.create(
+        email="existingworkshop@example.com",
+        username="existingworkshop",
+        password="workshoppass",
+    )
+
+    workshop = Workshop.objects.create(
+        account=account,
+        address="zayed",
+    )
+    workshop.services.set([test_service])
+
+    return workshop
