@@ -67,8 +67,8 @@ cd quickwrench-api
 3. Set up a virtual environment and activate it
 
 ```sh
-python3 -m venv env
-source env/bin/activate
+python3 -m venv venv
+source venv/bin/activate
 ```
 
 4. Install dependencies
@@ -80,8 +80,8 @@ pip install -r reqs/dev.txt
 5. Apply database migrations and load initial data
 
 ```sh
-python manage.py migrate
-python manage.py loaddata
+python src/manage.py migrate
+python src/manage.py loaddata
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -93,7 +93,7 @@ Here is how to use the project:
 1. Start the development server
 
 ```sh
-python manage.py runserver
+python src/manage.py runserver
 ```
 
 2. Visit `http://127.0.0.1:8000` in your browser.
