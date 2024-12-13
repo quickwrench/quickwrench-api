@@ -6,7 +6,7 @@ from ..accounts.serializers import AccountSerializer
 from .models import Account, Category, Workshop, Service
 
 
-class CategorySerializers(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields: Iterable[str] = (
@@ -15,7 +15,7 @@ class CategorySerializers(serializers.ModelSerializer):
         )
 
 
-class ServiceSerializers(serializers.ModelSerializer):
+class ServiceSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 
     class Meta:
@@ -28,7 +28,7 @@ class ServiceSerializers(serializers.ModelSerializer):
         )
 
 
-class WorkshopSerializers(serializers.ModelSerializer):
+class WorkshopSerializer(serializers.ModelSerializer):
     account: AccountSerializer = AccountSerializer()
     services: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
         queryset=Service.objects.all(),
