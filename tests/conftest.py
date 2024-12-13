@@ -4,6 +4,7 @@ from django.core.management import call_command
 from quickwrench_api.apps.accounts.models import Account
 from quickwrench_api.apps.users.models import User
 from quickwrench_api.apps.car_makes.models import CarMake
+from rest_framework_simplejwt.tokens import AccessToken
 
 
 @pytest.fixture()
@@ -17,20 +18,20 @@ def load_data(db, django_db_blocker):
         call_command("loaddata", "carmakes.json")
 
 
-# @pytest.fixture()
-# def authenticated_account(db) -> Account:
-#     account = Account.objects.create_user(
-#         username="authenticated_user",
-#         email="authenticated@test.com",
-#         password="testpass",
-#     )
-#     return account
+@pytest.fixture()
+def authenticated_account(db) -> Account:
+    account = Account.objects.create_user(
+        username="authenticated_user",
+        email="authenticated@test.com",
+        password="testpass",
+    )
+    return account
 
 
-# @pytest.fixture()
-# def jwt_token(authenticated_account) -> str:
-#     token = AccessToken.for_user(authenticated_account)
-#     return str(token)
+@pytest.fixture()
+def jwt_token(authenticated_account) -> str:
+    token = AccessToken.for_user(authenticated_account)
+    return str(token)
 
 
 @pytest.fixture
