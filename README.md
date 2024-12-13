@@ -4,9 +4,9 @@
   <a href="https://github.com/quickwrench/quickwrench-api">
     <img src="assets/logo.png" alt="Logo" height="150">
   </a>
-  <h2 align="center">Quickwrench API</h2>
+  <h2 align="center">QuickWrench API</h2>
   <p align="center">
-    Backend API powering the Quickwrench web application ⚡
+    Backend API powering the QuickWrench web application ⚡
     <p align="center">
       <a href="https://techforpalestine.org/learn-more"><img alt="StandWithPalestine" src="https://raw.githubusercontent.com/Safouene1/support-palestine-banner/master/StandWithPalestine.svg"></a>
       <img alt="GitHub License" src="https://img.shields.io/github/license/quickwrench/quickwrench-api">
