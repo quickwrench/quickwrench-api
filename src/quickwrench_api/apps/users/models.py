@@ -1,14 +1,7 @@
 from django.db import models
 
 from ..accounts.models import Account
-
-
-class CarMake(models.TextChoices):
-    BMW = "BMW", "BMW"
-    AUDI = "AUDI", "Audi"
-    TOYOTA = "TOYOTA", "Toyota"
-    HONDA = "HONDA", "Honda"
-    FORD = "FORD", "Ford"
+from quickwrench_api.apps.car_makes.models import CarMake
 
 
 class User(models.Model):
@@ -21,6 +14,6 @@ class User(models.Model):
     last_name: models.CharField = models.CharField(
         max_length=200, null=False, blank=False
     )
-    car_make: models.CharField = models.CharField(
-        max_length=50, choices=CarMake, null=True
+    car_make: models.ForeignKey = models.ForeignKey(
+        CarMake, on_delete=models.SET_NULL, null=True, blank=True, related_name="users"
     )
