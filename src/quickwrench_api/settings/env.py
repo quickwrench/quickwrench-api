@@ -3,9 +3,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv(os.getenv("DJANGO_ENV_FILEPATH"))
-
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(os.getenv("DJANGO_ENV_FILEPATH", BASE_DIR / "env/dev.env"))
 
 DEBUG: bool = bool(os.getenv("DJANGO_DEBUG"))
 
