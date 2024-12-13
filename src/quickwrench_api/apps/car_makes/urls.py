@@ -1,8 +1,9 @@
 from django.urls import URLPattern, URLResolver, path
-from .views import CarMakeAPI
+
+from .views import CarMakeAPIView
 
 app_name: str = "car_makes"
 
 urlpatterns: list[URLPattern | URLResolver] = [
-    path("index/", CarMakeAPI.as_view(), name="index")
+    path("", CarMakeAPIView.as_view(), name="index")
 ]
