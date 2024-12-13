@@ -1,7 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
-from quickwrench_api.apps.accounts.models import Account
+from ..accounts.models import Account
+from ..car_makes.models import CarMake
 
 
 class Category(models.Model):
@@ -46,6 +47,10 @@ class Service(models.Model):
 
 
 class Workshop(models.Model):
+    carmake: models.ManyToManyField = models.ManyToManyField(
+        CarMake,
+        blank=False,
+    )
     account: models.OneToOneField = models.OneToOneField(
         Account,
         on_delete=models.CASCADE,
@@ -53,6 +58,7 @@ class Workshop(models.Model):
     services: models.ManyToManyField = models.ManyToManyField(
         Service,
         related_name="workshops",
+        blank=False,
     )
     address: models.CharField = models.CharField(
         max_length=200,
