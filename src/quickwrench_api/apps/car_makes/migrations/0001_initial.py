@@ -3,14 +3,6 @@
 from django.db import migrations, models
 
 
-def populate_carmake(apps, schema_editor):
-    CarMake = apps.get_model("car_makes", "CarMake")
-    car_makes = ["Toyota", "Honda", "Ford", "BMW", "Mercedes"]
-    for make in car_makes:
-        obj = CarMake(name=make)
-        obj.save()
-
-
 class Migration(migrations.Migration):
 
     initial = True
@@ -33,5 +25,4 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=50, unique=True)),
             ],
         ),
-        migrations.RunPython(populate_carmake),
     ]
