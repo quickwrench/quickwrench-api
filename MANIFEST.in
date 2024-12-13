@@ -1,1 +1,4 @@
-graft **/staticfiles
+graft quickwrench_api/staticfiles
+graft quickwrench_api/apps/*/fixtures
+graft src/quickwrench_api/staticfiles
+graft src/quickwrench_api/apps/*/fixtures
