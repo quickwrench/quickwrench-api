@@ -1,6 +1,6 @@
 from django.urls import URLPattern, URLResolver, path
 
-from quickwrench_api.apps.workshops import views
+from ..workshops import views
 
 
 app_name: str = "workshops"
