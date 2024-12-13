@@ -4,17 +4,18 @@ from rest_framework import status
 
 class TestRegister:
     @pytest.mark.django_db
-    def test_register_success_201(self, client, user_data):
+    def test_register_success_201(self, client, user_data, load_data):
         response = client.post("/users/register/", user_data, format="json")
-        assert response.status_code == status.HTTP_201_CREATED
         assert response.data["account"]["username"] == user_data["account"]["username"]
         assert response.data["account"]["email"] == user_data["account"]["email"]
         assert response.data["first_name"] == user_data["first_name"]
         assert response.data["last_name"] == user_data["last_name"]
         assert response.data["car_make"] == user_data["car_make"]
+        assert response.status_code == status.HTTP_201_CREATED
 
     @pytest.mark.django_db
     def test_register_with_existing_email(self, client, user_with_existing_email):
+
         payload = {
             "account": {
                 "email": user_with_existing_email.account.email,
