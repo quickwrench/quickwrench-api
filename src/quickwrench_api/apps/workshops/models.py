@@ -26,7 +26,6 @@ class Service(models.Model):
         Category,
         on_delete=models.CASCADE,
         related_name="services",
-        default=1,
     )
     name: models.CharField = models.CharField(
         max_length=100,
@@ -41,7 +40,6 @@ class Service(models.Model):
         null=False,
         blank=False,
         validators=[MinValueValidator(0), MaxValueValidator(999999)],
-        default=0,
     )
 
     def __str__(self) -> str:
