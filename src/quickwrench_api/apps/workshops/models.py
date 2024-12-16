@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from ..accounts.models import Account
 from ..car_makes.models import CarMake
@@ -26,6 +26,7 @@ class Service(models.Model):
         Category,
         on_delete=models.CASCADE,
         related_name="services",
+        default=1,
     )
     name: models.CharField = models.CharField(
         max_length=100,
@@ -39,7 +40,8 @@ class Service(models.Model):
     price: models.PositiveBigIntegerField = models.PositiveBigIntegerField(
         null=False,
         blank=False,
-        validators=[MinValueValidator(0)],
+        validators=[MinValueValidator(0), MaxValueValidator(999999)],
+        default=0,
     )
 
     def __str__(self) -> str:
@@ -47,7 +49,7 @@ class Service(models.Model):
 
 
 class Workshop(models.Model):
-    carmake: models.ManyToManyField = models.ManyToManyField(
+    carmakes: models.ManyToManyField = models.ManyToManyField(
         CarMake,
         blank=False,
     )
