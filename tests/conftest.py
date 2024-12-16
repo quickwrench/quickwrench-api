@@ -14,10 +14,11 @@ def client() -> APIClient:
     return APIClient()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(autouse=True, scope="function")
 def load_data(db, django_db_blocker):
     with django_db_blocker.unblock():
         call_command("loaddata", "carmakes.json")
+        call_command("loaddata", "categories.json")
 
 
 @pytest.fixture()
@@ -81,46 +82,66 @@ def user_with_existing_email(db, existing_user, load_data):
     return user
 
 
-# category
-@pytest.fixture
-def test_category():
-    return Category.objects.create(name="Testcategroy", description="testdescription")
+# # category
+# @pytest.fixture
+# def test_category():
+#     return Category.objects.create(name="Testcategroy", description="testdescription")
 
 
 # service
 @pytest.fixture
-def test_service(test_category):
+def test_service(db, load_data):
+    category = Category.objects.get(id=1)
     return Service.objects.create(
-        category=test_category,
+        category=category,
         name="Oil",
         description="description",
         price=99,
     )
 
 
-# workshops
 @pytest.fixture
-def workshops_valid_data(test_account, test_service):
+def workshop_data(test_account, test_service):
     return {
+        # "carmakes": [{"id": 1}],
         "account": test_account,
-        "services": [test_service.id],
+        "carmakes": [1],  # Pass only the IDs of the car makes, not a dictionary
+        "services": [
+            {
+                "name": test_service.name,
+                "description": test_service.description,
+                "category": test_service.category.id,  # Assuming category is passed as ID
+                "price": test_service.price,
+            }
+        ],
         "address": "zayed",
     }
 
 
 @pytest.fixture
-def workshop_with_existing_email(db, test_service):
+def existing_workshop():
+    return {
+        "account": {
+            "email": "existinguser@example.com",
+            "username": "existinguser",
+            "password": "testpass",
+        },
+        "address": "zayed",
+    }
 
+
+@pytest.fixture
+def workshop_with_existing_email(db, test_service, existing_workshop, load_data):
+    carmakes = CarMake.objects.get(id=1)
     account = Account.objects.create(
-        email="existingworkshop@example.com",
-        username="existingworkshop",
-        password="workshoppass",
+        email=existing_workshop["account"]["email"],
+        username=existing_workshop["account"]["username"],
+        password=existing_workshop["account"]["password"],
     )
-
     workshop = Workshop.objects.create(
         account=account,
-        address="zayed",
+        address=existing_workshop["address"],
     )
     workshop.services.set([test_service])
-
+    workshop.carmakes.set([carmakes])
     return workshop

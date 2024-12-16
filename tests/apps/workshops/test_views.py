@@ -1,43 +1,61 @@
 import pytest
+from quickwrench_api.apps.workshops.models import Workshop
 from rest_framework import status
 from rest_framework.response import Response
-
 from rest_framework.test import APIClient
 
 
 class TestWorkshop:
+
     @pytest.mark.django_db
-    def test_workshop_success_201(self, client: APIClient, workshops_valid_data):
+    def test_category_returns_instance_200(self, client, load_data):
+        response: Response = client.get("/workshops/categories/")
+        data = response.json()
+        instance_count = len(data)
+        print(data)
+        assert response.status_code == status.HTTP_200_OK
+        assert instance_count == 9
+
+    @pytest.mark.django_db
+    def test_workshop_success_201(self, client: APIClient, workshop_data):
         response: Response = client.post(
-            "/workshops/register/", workshops_valid_data, format="json"
+            "/workshops/register/", workshop_data, format="json"
         )
         assert response.status_code == status.HTTP_201_CREATED
-        assert (
-            response.data["account"]["username"]
-            == workshops_valid_data["account"]["username"]
+
+    @pytest.mark.django_db
+    def test_workshop_register_expected_response(
+        self, client: APIClient, workshop_data
+    ):
+        response: Response = client.post(
+            "/workshops/register/", workshop_data, format="json"
         )
-        assert (
-            response.data["account"]["email"]
-            == workshops_valid_data["account"]["email"]
-        )
-        assert response.data["address"] == workshops_valid_data["address"]
-        assert set(response.data["services"]) == set(workshops_valid_data["services"])
+        expected_data = workshop_data
+        expected_data["account"].pop("password")
+        assert response.json() == expected_data
 
     @pytest.mark.django_db
     def test_workshop_with_existing_email(
         self,
         client: APIClient,
         workshop_with_existing_email,
-        test_service,
     ):
         payload = {
+            "carmakes": [1],
             "account": {
                 "email": workshop_with_existing_email.account.email,
                 "username": "newuser",
                 "password": "newpassword",
             },
             "address": "zayed",
-            "service": [test_service.id],
+            "services": [
+                {
+                    "category": 1,
+                    "name": "Oil",
+                    "description": "change oil",
+                    "price": 1000,
+                }
+            ],
         }
 
         response: Response = client.post("/workshops/register/", payload, format="json")
@@ -63,30 +81,30 @@ class TestWorkshop:
         ],
     )
     def test_workshops_with_invalid_email(
-        self, client: APIClient, workshops_valid_data, email, expected_error
+        self, client: APIClient, workshop_data, email: str, expected_error: str
     ):
-        workshops_valid_data["account"]["email"] = email
-        response = client.post(
-            "/workshops/register/", workshops_valid_data, format="json"
+        workshop_data["account"]["email"] = email
+        response: Response = client.post(
+            "/workshops/register/", workshop_data, format="json"
         )
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert response.data["account"]["email"] == [expected_error]
 
     @pytest.mark.django_db
-    def test_workshop_missing_username(self, client: APIClient, workshops_valid_data):
-        workshops_valid_data["account"]["username"] = ""
+    def test_workshop_missing_username(self, client: APIClient, workshop_data):
+        workshop_data["account"]["username"] = ""
         response: Response = client.post(
-            "/workshops/register/", workshops_valid_data, format="json"
+            "/workshops/register/", workshop_data, format="json"
         )
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "username" in response.data["account"]
         assert response.data["account"]["username"] == ["This field may not be blank."]
 
     @pytest.mark.django_db
-    def test_workshop_missing_password(self, client: APIClient, workshops_valid_data):
-        workshops_valid_data["account"]["password"] = ""
+    def test_workshop_missing_password(self, client: APIClient, workshop_data):
+        workshop_data["account"]["password"] = ""
         response: Response = client.post(
-            "/workshops/register/", workshops_valid_data, format="json"
+            "/workshops/register/", workshop_data, format="json"
         )
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "password" in response.data["account"]
