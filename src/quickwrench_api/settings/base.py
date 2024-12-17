@@ -93,3 +93,5 @@ SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "TITLE": "Quickwrench API",
     "DESCRIPTION": "Your go-to platform for car repair scheduling.",
 }
+
+INIT_FIXTURES: set[str] = {"carmakes", "categories"}
