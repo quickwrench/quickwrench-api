@@ -46,7 +46,7 @@ def user_with_existing_email(db, existing_user, load_data):
 
 
 @pytest.fixture()
-def user_to_fetch(db, load_carmake_data) -> User:
+def user_to_fetch(db, load_data) -> User:
     car_make: CarMake = CarMake.objects.get(id=1)
     account: Account = Account.objects.create_user(
         email="testuser@test.com", username="username123", password="testpass"

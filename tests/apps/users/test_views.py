@@ -4,7 +4,7 @@ from rest_framework import status
 
 class TestUser:
     @pytest.mark.django_db
-    def test_register_success_201(self, client, user_data, load_carmake_data):
+    def test_register_success_201(self, client, user_data, load_data):
         response = client.post("/users/register/", user_data, format="json")
         assert response.data["account"]["username"] == user_data["account"]["username"]
         assert response.data["account"]["email"] == user_data["account"]["email"]
