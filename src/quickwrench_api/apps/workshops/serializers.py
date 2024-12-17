@@ -3,17 +3,14 @@ from typing import Iterable
 from rest_framework import serializers
 
 from ..accounts.serializers import AccountSerializer
-from .models import Account, Category, Workshop, Service
 from ..car_makes.models import CarMake
+from .models import Account, Category, Service, Workshop
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields: Iterable[str] = (
-            "name",
-            "description",
-        )
+        fields: str = "__all__"
 
 
 class ServiceSerializer(serializers.ModelSerializer):
