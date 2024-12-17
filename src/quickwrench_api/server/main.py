@@ -7,8 +7,7 @@ from ..asgi import application
 
 def initialize_db() -> None:
     management.call_command("migrate")
-    for fixture in settings.INIT_FIXTURES:
-        management.call_command("loaddata", fixture)
+    management.call_command("loaddata", *settings.INIT_FIXTURES)
 
 
 def run() -> None:
