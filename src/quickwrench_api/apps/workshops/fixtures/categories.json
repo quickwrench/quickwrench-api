@@ -1,0 +1,74 @@
+[
+    {
+        "model": "workshops.category",
+        "pk": 1,
+        "fields": {
+            "name": "Engine & Performance",
+            "description": "Maintain your engine’s health with regular oil changes, air filter replacements, and fuel system cleaning to keep your vehicle running smoothly."
+        }
+    },
+    {
+        "model": "workshops.category",
+        "pk": 2,
+        "fields": {
+            "name": "Tires & Wheels",
+            "description": "Ensure optimal tire performance by regularly rotating your tires, checking tire pressure, and maintaining wheel alignment for a smoother drive."
+        }
+    },
+    {
+        "model": "workshops.category",
+        "pk": 3,
+        "fields": {
+            "name": "Brakes & Suspension",
+            "description": "Maintain safe driving conditions with regular brake fluid checks, brake pad replacements, and suspension system inspections."
+        }
+    },
+    {
+        "model": "workshops.category",
+        "pk": 4,
+        "fields": {
+            "name": "Battery & Electrical",
+            "description": "Keep your vehicle’s electrical systems running by checking the battery, inspecting the alternator, and replacing light bulbs when needed."
+        }
+    },
+    {
+        "model": "workshops.category",
+        "pk": 5,
+        "fields": {
+            "name": "Transmission & Drivetrain",
+            "description": "Extend the life of your transmission by checking and changing the fluid regularly, and inspecting the clutch and drive belts."
+        }
+    },
+    {
+        "model": "workshops.category",
+        "pk": 6,
+        "fields": {
+            "name": "Cooling & Heating",
+            "description": "Ensure your vehicle runs at the right temperature by checking coolant levels, flushing the radiator, and maintaining the air conditioning system."
+        }
+    },
+    {
+        "model": "workshops.category",
+        "pk": 7,
+        "fields": {
+            "name": "Exterior & Bodywork",
+            "description": "Preserve your vehicle’s exterior by replacing windshield wipers, inspecting for damage, and regularly waxing to protect the paint."
+        }
+    },
+    {
+        "model": "workshops.category",
+        "pk": 8,
+        "fields": {
+            "name": "Interior & Comfort",
+            "description": "Stay comfortable with regular checks on cabin air filters, seatbelts, and the HVAC system to ensure a pleasant driving experience."
+        }
+    },
+    {
+        "model": "workshops.category",
+        "pk": 9,
+        "fields": {
+            "name": "Miscellaneous Services",
+            "description": "Track important tasks like vehicle inspections, optimizing fuel efficiency, and staying informed about any vehicle recalls that may affect your car."
+        }
+    }
+]
