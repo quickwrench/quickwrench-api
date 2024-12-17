@@ -13,7 +13,7 @@ def client() -> APIClient:
 
 
 @pytest.fixture(scope="function")
-def load_data(db, django_db_blocker):
+def load_carmake_data(db, django_db_blocker):
     with django_db_blocker.unblock():
         call_command("loaddata", "carmakes.json")
 
@@ -63,7 +63,7 @@ def existing_user():
 
 
 @pytest.fixture
-def user_with_existing_email(db, existing_user, load_data):
+def user_with_existing_email(db, existing_user, load_carmake_data):
     car_make = CarMake.objects.get(id=1)
     account = Account.objects.create_user(
         email=existing_user["account"]["email"],
