@@ -62,3 +62,19 @@ def workshop_with_existing_email(
     workshop.services.set([test_service])
     workshop.carmakes.set([carmakes])
     return workshop
+
+
+@pytest.fixture
+def workshop_instance(db, test_service, workshop_data, load_data) -> Workshop:
+    car_makes = CarMake.objects.get(id=1)
+    account = Account.objects.create_user(
+        email=workshop_data["account"]["email"],
+        username=workshop_data["account"]["username"],
+        password=workshop_data["account"]["password"],
+    )
+    workshop = Workshop.objects.create(
+        account=account, address=workshop_data["address"]
+    )
+    workshop.services.set([test_service])
+    workshop.carmakes.set([car_makes])
+    return workshop
