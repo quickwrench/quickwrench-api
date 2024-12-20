@@ -109,3 +109,23 @@ class TestWorkshop:
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "password" in response.data["account"]
         assert response.data["account"]["password"] == ["This field may not be blank."]
+
+    @pytest.mark.django_db
+    def test_workshop_details_endpoint_returns_200(self, workshop_instance, client):
+        response = client.get(f"/workshops/{workshop_instance.id}/")
+        assert response.status_code == status.HTTP_200_OK
+
+    @pytest.mark.django_db
+    def test_workshop_details_endpoint_returns_expected_data(
+        self, client, workshop_data, workshop_instance
+    ):
+        response = client.get(f"/workshops/{workshop_instance.id}/")
+        response_data = response.json()
+        workshop_data["account"].pop("password")
+        assert response_data == workshop_data
+
+    @pytest.mark.django_db
+    def test_invalid_workshop_account_id_returns_404_workshop_not_found(self, client):
+        response = client.get(f"/workshops/{5}/")
+        response_data = response.json()
+        assert response_data["message"] == "Workshop does not exist"

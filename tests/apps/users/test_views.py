@@ -2,7 +2,7 @@ import pytest
 from rest_framework import status
 
 
-class TestRegister:
+class TestUser:
     @pytest.mark.django_db
     def test_register_success_201(self, client, user_data, load_data):
         response = client.post("/users/register/", user_data, format="json")
@@ -65,3 +65,27 @@ class TestRegister:
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "password" in response.data["account"]
         assert response.data["account"]["password"] == ["This field may not be blank."]
+
+    @pytest.mark.django_db
+    def test_get_user_details_endpoint_returns_200(self, client, user_instance):
+        response = client.get(f"/users/{user_instance.account.id}/")
+        assert response.status_code == status.HTTP_200_OK
+
+    @pytest.mark.django_db
+    def test_get_user_details_endpoint_returns_expected_data(
+        self, client, user_instance
+    ):
+        response = client.get(f"/users/{user_instance.account.id}/")
+        response_data = response.json()
+        assert response_data["first_name"] == user_instance.first_name
+        assert response_data["last_name"] == user_instance.last_name
+        assert response_data["account"]["email"] == user_instance.account.email
+        assert response_data["account"]["username"] == user_instance.account.username
+        assert response_data["car_make"] == user_instance.car_make.id
+
+    @pytest.mark.django_db
+    def test_invalid_account_id_returns_404_user_does_not_exist(self, client):
+        response = client.get(f"/users/{6}/")
+        response_data = response.json()
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response_data["message"] == "User does not exist."
