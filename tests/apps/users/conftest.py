@@ -3,10 +3,11 @@ import pytest
 from quickwrench_api.apps.accounts.models import Account
 from quickwrench_api.apps.car_makes.models import CarMake
 from quickwrench_api.apps.users.models import User
+from typing import Any
 
 
 @pytest.fixture
-def user_data(test_account):
+def user_data(test_account) -> dict[str, Any]:
     return {
         "account": test_account,
         "first_name": "John",
@@ -16,7 +17,7 @@ def user_data(test_account):
 
 
 @pytest.fixture
-def existing_user():
+def existing_user() -> dict[str, Any]:
     return {
         "account": {
             "email": "existinguser@example.com",
@@ -29,14 +30,14 @@ def existing_user():
 
 
 @pytest.fixture
-def user_with_existing_email(db, existing_user, load_data):
-    car_make = CarMake.objects.get(id=1)
-    account = Account.objects.create_user(
+def user_with_existing_email(db, existing_user, load_data) -> User:
+    car_make: CarMake = CarMake.objects.get(id=1)
+    account: Account = Account.objects.create_user(
         email=existing_user["account"]["email"],
         username=existing_user["account"]["username"],
         password=existing_user["account"]["password"],
     )
-    user = User.objects.create(
+    user: User = User.objects.create(
         account=account,
         first_name=existing_user["first_name"],
         last_name=existing_user["last_name"],
@@ -46,7 +47,7 @@ def user_with_existing_email(db, existing_user, load_data):
 
 
 @pytest.fixture()
-def user_to_fetch(db, load_data) -> User:
+def user_instance(db, load_data) -> User:
     car_make: CarMake = CarMake.objects.get(id=1)
     account: Account = Account.objects.create_user(
         email="testuser@test.com", username="username123", password="testpass"

@@ -73,15 +73,15 @@ class TestUser:
 
     @pytest.mark.django_db
     def test_get_user_details_endpoint_returns_expected_data(
-        self, client, user_to_fetch
+        self, client, user_instance
     ):
-        response = client.get(f"/users/{user_to_fetch.account.id}/")
+        response = client.get(f"/users/{user_instance.account.id}/")
         response_data = response.json()
-        assert response_data["first_name"] == user_to_fetch.first_name
-        assert response_data["last_name"] == user_to_fetch.last_name
-        assert response_data["account"]["email"] == user_to_fetch.account.email
-        assert response_data["account"]["username"] == user_to_fetch.account.username
-        assert response_data["car_make"] == user_to_fetch.car_make.id
+        assert response_data["first_name"] == user_instance.first_name
+        assert response_data["last_name"] == user_instance.last_name
+        assert response_data["account"]["email"] == user_instance.account.email
+        assert response_data["account"]["username"] == user_instance.account.username
+        assert response_data["car_make"] == user_instance.car_make.id
 
     @pytest.mark.django_db
     def test_invalid_account_id_returns_404_user_does_not_exist(self, client):
