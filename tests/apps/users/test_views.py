@@ -67,8 +67,8 @@ class TestUser:
         assert response.data["account"]["password"] == ["This field may not be blank."]
 
     @pytest.mark.django_db
-    def test_get_user_details_endpoint_returns_200(self, client, user_to_fetch):
-        response = client.get(f"/users/{user_to_fetch.account.id}/")
+    def test_get_user_details_endpoint_returns_200(self, client, user_instance):
+        response = client.get(f"/users/{user_instance.account.id}/")
         assert response.status_code == status.HTTP_200_OK
 
     @pytest.mark.django_db
