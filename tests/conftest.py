@@ -4,8 +4,6 @@ from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import AccessToken
 from typing import Any
 from quickwrench_api.apps.accounts.models import Account
-from quickwrench_api.apps.car_makes.models import CarMake
-from quickwrench_api.apps.users.models import User
 from quickwrench_api.apps.workshops.models import Service, Category
 
 
