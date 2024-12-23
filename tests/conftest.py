@@ -38,6 +38,10 @@ def test_account() -> dict[str, Any]:
         "username": "testuser",
         "password": "testpass",
         "phone_number": "+201201234567",
+<<<<<<< HEAD
+=======
+
+>>>>>>> 29eb026232c4fe274c7afb7b5c9205c0cfc9d643
     }
 
 
