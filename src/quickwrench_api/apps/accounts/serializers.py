@@ -8,7 +8,7 @@ from .models import Account
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model: type = Account
-        fields: Iterable[str] = ("email", "username", "password", "phone_number")
+        fields: Iterable[str] = ("id", "email", "username", "password", "phone_number")
         extra_kwargs: Mapping[str, Mapping] = {
             "password": {"write_only": True},
         }

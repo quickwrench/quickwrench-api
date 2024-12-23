@@ -6,17 +6,6 @@ from quickwrench_api.apps.workshops.models import Service, Category, Workshop
 
 
 @pytest.fixture
-def test_service(db, load_data) -> Service:
-    category: Category = Category.objects.get(id=1)
-    return Service.objects.create(
-        category=category,
-        name="Oil",
-        description="description",
-        price=99,
-    )
-
-
-@pytest.fixture
 def workshop_data(test_account: dict[str, str], test_service: Service):
     return {
         "account": test_account,
@@ -69,4 +58,21 @@ def workshop_with_existing_email(
     )
     workshop.services.set([test_service])
     workshop.carmakes.set([carmakes])
+    return workshop
+
+
+@pytest.fixture
+def workshop_instance(db, test_service, workshop_data, load_data) -> Workshop:
+    car_makes = CarMake.objects.get(id=1)
+    account = Account.objects.create_user(
+        email=workshop_data["account"]["email"],
+        username=workshop_data["account"]["username"],
+        password=workshop_data["account"]["password"],
+        phone_number=workshop_data["account"]["phone_number"],
+    )
+    workshop = Workshop.objects.create(
+        account=account, name=workshop_data["name"], address=workshop_data["address"]
+    )
+    workshop.services.set([test_service])
+    workshop.carmakes.set([car_makes])
     return workshop

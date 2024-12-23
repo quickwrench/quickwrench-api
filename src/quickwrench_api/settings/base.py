@@ -10,6 +10,7 @@ INSTALLED_APPS: list[str] = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_filters",
+    "corsheaders",
     "rest_framework",
     "drf_spectacular",
     "quickwrench_api.apps.accounts",
@@ -19,6 +20,7 @@ INSTALLED_APPS: list[str] = [
 ]
 
 MIDDLEWARE: list[str] = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",

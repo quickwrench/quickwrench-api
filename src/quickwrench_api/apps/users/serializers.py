@@ -6,7 +6,7 @@ from ..accounts.serializers import AccountSerializer
 from .models import Account, User
 
 
-class RegisterSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     account: AccountSerializer = AccountSerializer()
 
     class Meta:
