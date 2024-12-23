@@ -5,7 +5,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models
 
 
@@ -39,12 +39,25 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
+
     class Meta:
         verbose_name = "account"
         verbose_name_plural = "accounts"
 
+    _egypt_phone_regex: RegexValidator = RegexValidator(
+        regex=r"^\+20(10|11|12|15)[0-9]{8}$",
+        message="Enter a phone number in this format: '+201xxxxxxxxx'.",
+    )
     email: models.EmailField = models.EmailField(unique=True)
     username: models.CharField = models.CharField(max_length=100, unique=True)
+    phone_number: models.CharField = models.CharField(
+        validators=[_egypt_phone_regex],
+        max_length=13,
+        null=False,
+        blank=False,
+        default=+201101234567,
+        unique=True,
+    )
     date_joined: models.DateField = models.DateField(auto_now_add=True)
     is_active: models.BooleanField = models.BooleanField(default=True)
     rating: models.FloatField = models.FloatField(
