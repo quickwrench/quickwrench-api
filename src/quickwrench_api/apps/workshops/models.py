@@ -47,6 +47,11 @@ class Service(models.Model):
 
 
 class Workshop(models.Model):
+    name: models.CharField = models.CharField(
+        max_length=200,
+        null=False,
+        blank=False,
+    )
     carmakes: models.ManyToManyField = models.ManyToManyField(
         CarMake,
         blank=False,
@@ -67,4 +72,4 @@ class Workshop(models.Model):
     )
 
     def __str__(self) -> str:
-        return self.address
+        return self.name
