@@ -24,13 +24,19 @@ def authenticated_account(db) -> Account:
         username="authenticated_user",
         email="authenticated@test.com",
         password="testpass",
+        phone_number="+201101234567",
     )
     return account
 
 
 @pytest.fixture
 def test_account() -> dict[str, str]:
-    return {"email": "test@test.com", "username": "testuser", "password": "testpass"}
+    return {
+        "email": "test@test.com",
+        "username": "testuser",
+        "password": "testpass",
+        "phone_number": "+201201234567",
+    }
 
 
 @pytest.fixture()

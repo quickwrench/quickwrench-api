@@ -2,7 +2,7 @@ import pytest
 
 from quickwrench_api.apps.accounts.models import Account
 from quickwrench_api.apps.car_makes.models import CarMake
-from quickwrench_api.apps.workshops.models import Category, Service, Workshop
+from quickwrench_api.apps.workshops.models import Service, Category, Workshop
 
 
 @pytest.fixture
@@ -29,34 +29,42 @@ def workshop_data(test_account: dict[str, str], test_service: Service):
                 "price": test_service.price,
             }
         ],
+        "name": "bimmerfixes",
         "address": "zayed",
     }
 
 
 @pytest.fixture
-def existing_workshop():
+def existing_workshop() -> dict:
     return {
         "account": {
             "email": "existinguser@example.com",
             "username": "existinguser",
             "password": "testpass",
+            "phone_number": "+201101234567",
         },
+        "name": "bimmerfixes",
         "address": "zayed",
     }
 
 
 @pytest.fixture
 def workshop_with_existing_email(
-    db, test_service: Service, existing_workshop, load_data
-):
+    db,
+    test_service: Service,
+    existing_workshop: dict,
+    load_data,
+) -> Workshop:
     carmakes = CarMake.objects.get(id=1)
-    account: dict[str, str] = Account.objects.create(
+    account: dict[str, str] = Account.objects.create_user(
         email=existing_workshop["account"]["email"],
         username=existing_workshop["account"]["username"],
         password=existing_workshop["account"]["password"],
+        phone_number=existing_workshop["account"]["phone_number"],
     )
     workshop: Workshop = Workshop.objects.create(
         account=account,
+        name=existing_workshop["name"],
         address=existing_workshop["address"],
     )
     workshop.services.set([test_service])

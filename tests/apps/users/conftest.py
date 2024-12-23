@@ -22,6 +22,7 @@ def existing_user():
             "email": "existinguser@example.com",
             "username": "existinguser",
             "password": "testpass",
+            "phone_number": "+201101234567",
         },
         "first_name": "John",
         "last_name": "Doe",
@@ -35,6 +36,7 @@ def user_with_existing_email(db, existing_user, load_data):
         email=existing_user["account"]["email"],
         username=existing_user["account"]["username"],
         password=existing_user["account"]["password"],
+        phone_number=existing_user["account"]["phone_number"],
     )
     user = User.objects.create(
         account=account,
