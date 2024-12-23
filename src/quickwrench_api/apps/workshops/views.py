@@ -52,10 +52,7 @@ class WorkshopDetailsAPIView(APIView):
         return Response(
             {"message": "Workshop does not exist"}, status=status.HTTP_404_NOT_FOUND
         )
-<<<<<<< HEAD
 
-=======
->>>>>>> 29eb026232c4fe274c7afb7b5c9205c0cfc9d643
 
 class WorkshopListView(generics.ListAPIView):
     queryset = Workshop.objects.all()
@@ -63,7 +60,3 @@ class WorkshopListView(generics.ListAPIView):
     permission_classes = []
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = WorkshopFilter
-<<<<<<< HEAD
-=======
-
->>>>>>> 29eb026232c4fe274c7afb7b5c9205c0cfc9d643
