@@ -5,7 +5,6 @@ from rest_framework.test import APIClient
 
 from quickwrench_api.apps.users.models import User
 
-
 class TestUser:
     @pytest.mark.django_db
     def test_register_success_201(self, client, user_data, load_data):

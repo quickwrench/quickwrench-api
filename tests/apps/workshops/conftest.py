@@ -2,7 +2,9 @@ import pytest
 
 from quickwrench_api.apps.accounts.models import Account
 from quickwrench_api.apps.car_makes.models import CarMake
+
 from quickwrench_api.apps.workshops.models import Service, Category, Workshop
+
 
 
 @pytest.fixture
@@ -72,6 +74,7 @@ def workshop_instance(db, test_service, workshop_data, load_data) -> Workshop:
     )
     workshop = Workshop.objects.create(
         account=account, name=workshop_data["name"], address=workshop_data["address"]
+
     )
     workshop.services.set([test_service])
     workshop.carmakes.set([car_makes])
