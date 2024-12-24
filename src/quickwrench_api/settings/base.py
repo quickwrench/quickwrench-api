@@ -90,12 +90,13 @@ REST_FRAMEWORK: dict[str, str | Iterable] = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "TITLE": "Quickwrench API",
     "DESCRIPTION": "Your go-to platform for car repair scheduling.",
+    "VERSION": "0.2.0",
 }
 
 INIT_FIXTURES: set[str] = {"carmakes", "categories"}
