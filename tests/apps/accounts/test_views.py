@@ -1,7 +1,8 @@
 import pytest
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
-from rest_framework import status
+
 from quickwrench_api.apps.accounts.models import Account
 
 
@@ -91,4 +92,5 @@ class TestAccountDetailsView:
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_token}")
         response = client.get("/accounts/me/")
         response_data = response.json()
-        assert response_data["message"] == "No associated user or workshop found"
+
+        assert response_data["message"] == "no associated user or workshop found"

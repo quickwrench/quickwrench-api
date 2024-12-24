@@ -9,6 +9,6 @@ class TestCarMake:
         response = client.get("/carmakes/")
         data = response.json()
         instance_count = len(data)
-        print(data)
+
         assert response.status_code == status.HTTP_200_OK
         assert instance_count == 5

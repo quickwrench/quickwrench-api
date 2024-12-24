@@ -1,6 +1,9 @@
 from typing import Mapping
 
-from rest_framework import status
+from rest_framework import status, generics
+from django_filters import rest_framework as filters
+from .filters import WorkshopFilter
+
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -49,3 +52,11 @@ class WorkshopDetailsAPIView(APIView):
         return Response(
             {"message": "Workshop does not exist"}, status=status.HTTP_404_NOT_FOUND
         )
+
+
+class WorkshopListView(generics.ListAPIView):
+    queryset = Workshop.objects.all()
+    serializer_class = WorkshopSerializer
+    permission_classes = []
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = WorkshopFilter

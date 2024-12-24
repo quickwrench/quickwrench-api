@@ -7,4 +7,5 @@ app_name: str = "users"
 urlpatterns: list[URLPattern | URLResolver] = [
     path("register/", views.RegisterAPIView.as_view(), name="register"),
     path("<int:id>/", views.UserDetailsAPIView.as_view(), name="user-details"),
+    path("search/", views.UserListView.as_view(), name="search"),
 ]

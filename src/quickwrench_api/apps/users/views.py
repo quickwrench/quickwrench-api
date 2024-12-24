@@ -1,10 +1,15 @@
 from typing import Mapping
 from .models import User
-from rest_framework import status
+
+from rest_framework import status, generics
+
+
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer
+from django_filters import rest_framework as filters
+from .filters import UserFilter
 
 
 class RegisterAPIView(APIView):
@@ -33,3 +38,11 @@ class UserDetailsAPIView(APIView):
             return Response(
                 {"message": "User does not exist."}, status=status.HTTP_404_NOT_FOUND
             )
+
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = []
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = UserFilter
