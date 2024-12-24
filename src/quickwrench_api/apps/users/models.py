@@ -1,7 +1,8 @@
 from django.db import models
 
+from quickwrench_api.apps.carmakes.models import CarMake
+
 from ..accounts.models import Account
-from quickwrench_api.apps.car_makes.models import CarMake
 
 
 class User(models.Model):
@@ -14,6 +15,6 @@ class User(models.Model):
     last_name: models.CharField = models.CharField(
         max_length=200, null=False, blank=False
     )
-    car_make: models.ForeignKey = models.ForeignKey(
+    carmake: models.ForeignKey = models.ForeignKey(
         CarMake, on_delete=models.SET_NULL, null=True, blank=True, related_name="users"
     )

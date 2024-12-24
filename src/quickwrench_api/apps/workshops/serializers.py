@@ -3,7 +3,7 @@ from typing import Iterable
 from rest_framework import serializers
 
 from ..accounts.serializers import AccountSerializer
-from ..car_makes.models import CarMake
+from ..carmakes.models import CarMake
 from .models import Account, Category, Service, Workshop
 
 

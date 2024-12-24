@@ -1,8 +1,8 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 from ..accounts.models import Account
-from ..car_makes.models import CarMake
+from ..carmakes.models import CarMake
 
 
 class Category(models.Model):

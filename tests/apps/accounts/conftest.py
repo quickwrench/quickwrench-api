@@ -1,7 +1,8 @@
 import pytest
-from quickwrench_api.apps.workshops.models import Workshop
-from quickwrench_api.apps.car_makes.models import CarMake
+
+from quickwrench_api.apps.carmakes.models import CarMake
 from quickwrench_api.apps.users.models import User
+from quickwrench_api.apps.workshops.models import Workshop
 
 
 @pytest.fixture

@@ -1,9 +1,10 @@
+from typing import Any
+
 import pytest
 
 from quickwrench_api.apps.accounts.models import Account
-from quickwrench_api.apps.car_makes.models import CarMake
+from quickwrench_api.apps.carmakes.models import CarMake
 from quickwrench_api.apps.users.models import User
-from typing import Any
 
 
 @pytest.fixture
