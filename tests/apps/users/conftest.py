@@ -13,7 +13,7 @@ def user_data(test_account) -> dict[str, Any]:
         "account": test_account,
         "first_name": "John",
         "last_name": "Doe",
-        "car_make": 1,
+        "carmake": 1,
     }
 
 
@@ -33,7 +33,7 @@ def existing_user() -> dict[str, Any]:
 
 @pytest.fixture
 def user_with_existing_email(db, existing_user, load_data) -> User:
-    car_make: CarMake = CarMake.objects.get(id=1)
+    carmake: CarMake = CarMake.objects.get(id=1)
     account: Account = Account.objects.create_user(
         email=existing_user["account"]["email"],
         username=existing_user["account"]["username"],
@@ -44,18 +44,18 @@ def user_with_existing_email(db, existing_user, load_data) -> User:
         account=account,
         first_name=existing_user["first_name"],
         last_name=existing_user["last_name"],
-        car_make=car_make,
+        carmake=carmake,
     )
     return user
 
 
 @pytest.fixture()
 def user_instance(db, load_data) -> User:
-    car_make: CarMake = CarMake.objects.get(id=1)
+    carmake: CarMake = CarMake.objects.get(id=1)
     account: Account = Account.objects.create_user(
         email="testuser@test.com", username="username123", password="testpass"
     )
     user: User = User.objects.create(
-        account=account, first_name="first", last_name="last", car_make=car_make
+        account=account, first_name="first", last_name="last", carmake=carmake
     )
     return user

@@ -1,8 +1,8 @@
 import pytest
-
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
+
 from quickwrench_api.apps.workshops.models import Workshop
 
 
@@ -13,7 +13,7 @@ class TestWorkshop:
         response: Response = client.get("/workshops/categories/")
         data = response.json()
         instance_count = len(data)
-        print(data)
+
         assert response.status_code == status.HTTP_200_OK
         assert instance_count == 9
 
@@ -33,6 +33,7 @@ class TestWorkshop:
         )
         expected_data = workshop_data
         expected_data["account"].pop("password")
+        expected_data["account"]["type"] = "workshop"
 
         assert response.json() == expected_data
 
@@ -207,6 +208,8 @@ class TestWorkshop:
         response = client.get(f"/workshops/{workshop_instance.id}/")
         response_data = response.json()
         workshop_data["account"].pop("password")
+        workshop_data["account"]["type"] = "workshop"
+
         assert response_data == workshop_data
 
     @pytest.mark.django_db

@@ -5,6 +5,7 @@ from rest_framework.test import APIClient
 
 from quickwrench_api.apps.users.models import User
 
+
 class TestUser:
     @pytest.mark.django_db
     def test_register_success_201(self, client, user_data, load_data):
@@ -17,7 +18,7 @@ class TestUser:
         )
         assert response.data["first_name"] == user_data["first_name"]
         assert response.data["last_name"] == user_data["last_name"]
-        assert response.data["car_make"] == user_data["car_make"]
+        assert response.data["carmake"] == user_data["carmake"]
         assert response.status_code == status.HTTP_201_CREATED
 
     @pytest.mark.django_db
@@ -32,7 +33,7 @@ class TestUser:
             },
             "first_name": "Jane",
             "last_name": "Doe",
-            "car_make": 1,
+            "carmake": 1,
         }
 
         response = client.post("/users/register/", payload, format="json")
@@ -142,7 +143,7 @@ class TestUser:
         assert response_data["last_name"] == user_instance.last_name
         assert response_data["account"]["email"] == user_instance.account.email
         assert response_data["account"]["username"] == user_instance.account.username
-        assert response_data["car_make"] == user_instance.car_make.id
+        assert response_data["carmake"] == user_instance.carmake.id
 
     @pytest.mark.django_db
     def test_invalid_account_id_returns_404_user_does_not_exist(self, client):

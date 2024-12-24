@@ -28,7 +28,9 @@ class AccountSerializer(serializers.ModelSerializer):
     def get_type(self, obj: Account) -> str:
         account_type: Optional[type[User | Workshop]] = utils.account_type(obj)
         if not account_type:
-            raise serializers.ValidationError("account does not belong to any type.")
+            raise serializers.ValidationError(
+                {"message": "no associated user or workshop found"}
+            )
         return "workshop" if account_type is Workshop else "user"
 
     def create(self, validated_data: Mapping[str, str]) -> Account:
