@@ -1,10 +1,13 @@
 from typing import Mapping
 
-from rest_framework import status
+from rest_framework import status, generics
+from django_filters import rest_framework as filters
+from .filters import WorkshopFilter
+
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Category
+from .models import Category, Workshop
 
 from .serializers import WorkshopSerializer, CategorySerializer
 
@@ -35,3 +38,25 @@ class WorkshopAPIView(APIView):
             serialzer.save()
             return Response(serialzer.data, status=status.HTTP_201_CREATED)
         return Response(serialzer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class WorkshopDetailsAPIView(APIView):
+    permission_classes = []
+    serializer_class = WorkshopSerializer
+
+    def get(self, request, id):
+        workshop = Workshop.objects.filter(account=id).first()
+        if workshop:
+            serializer = self.serializer_class(workshop)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(
+            {"message": "Workshop does not exist"}, status=status.HTTP_404_NOT_FOUND
+        )
+
+
+class WorkshopListView(generics.ListAPIView):
+    queryset = Workshop.objects.all()
+    serializer_class = WorkshopSerializer
+    permission_classes = []
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = WorkshopFilter

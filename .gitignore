@@ -8,6 +8,9 @@ __pycache__
 .*cache
 build
 
+# build
+*.egg-info
+
 # django
 db.sqlite3
 staticfiles

@@ -3,7 +3,7 @@ from typing import Iterable
 from rest_framework import serializers
 
 from ..accounts.serializers import AccountSerializer
-from ..car_makes.models import CarMake
+from ..carmakes.models import CarMake
 from .models import Account, Category, Service, Workshop
 
 
@@ -37,7 +37,7 @@ class WorkshopSerializer(serializers.ModelSerializer):
     carmakes: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
         queryset=CarMake.objects.all(),
         many=True,
-        default=1,
+        default=[1],
     )
     services: ServiceSerializer = ServiceSerializer(
         many=True,
@@ -46,6 +46,7 @@ class WorkshopSerializer(serializers.ModelSerializer):
     class Meta:
         model: type = Workshop
         fields: Iterable[str] = (
+            "name",
             "carmakes",
             "account",
             "address",

@@ -9,15 +9,18 @@ INSTALLED_APPS: list[str] = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_filters",
+    "corsheaders",
     "rest_framework",
     "drf_spectacular",
     "quickwrench_api.apps.accounts",
     "quickwrench_api.apps.users",
     "quickwrench_api.apps.workshops",
-    "quickwrench_api.apps.car_makes",
+    "quickwrench_api.apps.carmakes",
 ]
 
 MIDDLEWARE: list[str] = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -87,11 +90,13 @@ REST_FRAMEWORK: dict[str, str | Iterable] = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "TITLE": "Quickwrench API",
     "DESCRIPTION": "Your go-to platform for car repair scheduling.",
+    "VERSION": "0.2.0",
 }
 
 INIT_FIXTURES: set[str] = {"carmakes", "categories"}

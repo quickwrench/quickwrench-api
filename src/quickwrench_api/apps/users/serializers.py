@@ -3,11 +3,16 @@ from typing import Iterable
 from rest_framework import serializers
 
 from ..accounts.serializers import AccountSerializer
+from ..carmakes.models import CarMake
 from .models import Account, User
 
 
-class RegisterSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     account: AccountSerializer = AccountSerializer()
+    carmake: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
+        queryset=CarMake.objects.all(),
+        default=1,
+    )
 
     class Meta:
         model: type = User
@@ -15,7 +20,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             "account",
             "first_name",
             "last_name",
-            "car_make",
+            "carmake",
         )
 
     def create(self, validated_data: dict) -> User:

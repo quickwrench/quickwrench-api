@@ -8,6 +8,8 @@ from django.contrib.auth.models import (
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
+from .validators import EGYPT_PHONE_REGEX
+
 
 class AccountManager(BaseUserManager):
     def create_user(self, email: str, password: str, **extra_fields: Any):
@@ -39,14 +41,32 @@ class AccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
+
     class Meta:
         verbose_name = "account"
         verbose_name_plural = "accounts"
 
-    email: models.EmailField = models.EmailField(unique=True)
-    username: models.CharField = models.CharField(max_length=100, unique=True)
-    date_joined: models.DateField = models.DateField(auto_now_add=True)
-    is_active: models.BooleanField = models.BooleanField(default=True)
+    email: models.EmailField = models.EmailField(
+        unique=True,
+    )
+    username: models.CharField = models.CharField(
+        max_length=100,
+        unique=True,
+    )
+    phone_number: models.CharField = models.CharField(
+        max_length=13,
+        unique=True,
+        null=False,
+        blank=False,
+        default="+201101234567",
+        validators=[EGYPT_PHONE_REGEX],
+    )
+    date_joined: models.DateField = models.DateField(
+        auto_now_add=True,
+    )
+    is_active: models.BooleanField = models.BooleanField(
+        default=True,
+    )
     rating: models.FloatField = models.FloatField(
         null=False,
         blank=False,
